@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>LeadDesk</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Sans+Bengali:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand">
+      <span class="logo">L</span>
+      <div>
+        <strong>LeadDesk</strong>
+        <small>Every enquiry saved. Nobody forgotten.</small>
+      </div>
+    </div>
+    <nav class="tabs" role="tablist">
+      <button data-tab="capture" class="active">＋ New enquiry</button>
+      <button data-tab="pipeline">Pipeline</button>
+      <button data-tab="list">All enquiries</button>
+      <button data-tab="followups">Follow-ups <span id="fuCount" class="pill danger hidden"></span></button>
+    </nav>
+    <span id="engine" class="engine" title="Which AI is reading messages">…</span>
+  </header>
+
+  <section class="stats" id="stats"></section>
+
+  <main>
+    <!-- 1. Capture -->
+    <section id="tab-capture" class="tab active">
+      <div class="grid2">
+        <div class="card">
+          <h2>Paste an enquiry</h2>
+          <p class="muted">Paste a WhatsApp/Facebook message or a phone-call note. AI fills in the lead for you — in Bangla, Banglish or English.</p>
+          <div class="row">
+            <label>Channel
+              <select id="inChannel">
+                <option>WhatsApp</option><option>Facebook Messenger</option><option>Facebook comment</option>
+                <option>Website form</option><option>Phone call note</option><option>Other</option>
+              </select>
+            </label>
+            <label>Name (optional)<input id="inName" placeholder="As shown in the chat"></label>
+            <label>Phone (optional)<input id="inPhone" placeholder="01XXXXXXXXX"></label>
+          </div>
+          <label>Message
+            <textarea id="inMessage" rows="6" placeholder="e.g. Assalamualaikum, apnader bootcamp er price koto?"></textarea>
+          </label>
+          <div class="actions">
+            <button id="btnExtract" class="primary">✨ Read with AI</button>
+            <select id="sampleSelect" class="ghost-select"><option value="">Try a sample message…</option></select>
+          </div>
+          <hr>
+          <div class="import">
+            <div>
+              <strong>Load 20 sample enquiries</strong>
+              <p class="muted">Runs every message through the same AI and builds the CRM from scratch.</p>
+            </div>
+            <div class="actions">
+              <button id="btnImport">Import all 20</button>
+              <button id="btnReset" class="link danger-text">Reset data</button>
+            </div>
+          </div>
+          <div id="importProgress" class="progress hidden"><div></div><span></span></div>
+        </div>
+
+        <div class="card" id="resultCard">
+          <div class="empty" id="resultEmpty">
+            <div class="big">🧠</div>
+            <p>The AI's reading of the message will appear here: who it is, what they want, whether it's a real lead, and a ready-to-send reply in their own language.</p>
+          </div>
+          <div id="result" class="hidden"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 2. Pipeline -->
+    <section id="tab-pipeline" class="tab">
+      <p class="muted hint">Drag a card to move it. Only real sales leads appear here — support, spam and job requests are kept out of the pipeline.</p>
+      <div class="board" id="board"></div>
+    </section>
+
+    <!-- 3. List -->
+    <section id="tab-list" class="tab">
+      <div class="toolbar">
+        <div class="chips" id="filters"></div>
+        <input id="search" type="search" placeholder="Search name, phone, message…">
+      </div>
+      <div class="card flush"><table class="table" id="table"></table></div>
+    </section>
+
+    <!-- 4. Follow-ups -->
+    <section id="tab-followups" class="tab">
+      <div class="grid2">
+        <div class="card">
+          <h2>Needs follow-up <small class="muted">(no contact in 48 hours)</small></h2>
+          <div id="fuList"></div>
+        </div>
+        <div class="card">
+          <div class="spread">
+            <h2>Weekly summary</h2>
+            <button id="btnSummary" class="primary">✨ Write with AI</button>
+          </div>
+          <div id="summary" class="md muted">Click the button to get this week's numbers, who to call first and what people keep asking.</div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Lead drawer -->
+  <div id="scrim" class="scrim hidden"></div>
+  <aside id="drawer" class="drawer hidden" aria-label="Lead details"></aside>
+  <div id="toast" class="toast hidden"></div>
+
+  <script src="app.js" type="module"></script>
+</body>
+</html>

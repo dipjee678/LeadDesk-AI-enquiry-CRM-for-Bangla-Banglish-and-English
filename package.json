@@ -1,0 +1,19 @@
+{
+  "name": "leaddesk",
+  "version": "1.0.0",
+  "description": "LeadDesk - AI enquiry CRM for Bangla, Banglish and English",
+  "scripts": {
+    "dev": "node --env-file-if-exists=.env dev-server.js",
+    "start": "node --env-file-if-exists=.env dev-server.js"
+  },
+  "author": "Dip Bhattacharjee",
+  "license": "MIT",
+  "type": "module",
+  "dependencies": {
+    "@anthropic-ai/sdk": "^1.4.0",
+    "zod": "^4.6.7"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}
